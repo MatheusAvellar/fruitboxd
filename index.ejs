@@ -1,0 +1,18 @@
+---
+layout: default.ejs
+title: Fruitboxd
+---
+
+<%_ const fruits = collections.all.filter(file => file.filePathStem.startsWith("/fruit/"));
+fruits.sort((a, b) => a.data.name.localeCompare(b.data.name));
+const fruit_count = fruits.length;
+%>
+<main>
+<ul class="fruit-list">
+	<%_ for(let i = 0; i < fruits.length; i++) { %>
+		<li>
+			<%- makeCard(fruits[i]) %>
+		</li>
+	<%_ } %>
+</ul>
+</main>

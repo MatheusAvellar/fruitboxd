@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8">
+	<title><%- title %></title>
+<!-- 	<link rel="icon" href="/favicon.ico" sizes="48x48">
+	<link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml"> -->
+	<meta content="Matheus Avellar" name="author">
+	<meta name="description" content="Fruitboxd é uma plataforma para eu, pessoalmente, compartilhar minhas reviews de frutas que eu comi.">
+<%- void(arguments[0]) %>
+	<link rel="preconnect" href="https://cdn.avl.la">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/assets/style.css">
+</head>
+<%_ bodyClass = fallback(arguments[0], "bodyClass", ""); %>
+<body class="<%= bodyClass %>">
+	<header>
+		<nav>
+			<a id="logo" href="/">
+				<h1>
+					<img title="Fruitboxd" src="/assets/logo.svg">
+					<span>Fruitboxd</span>
+				</h1>
+			</a>
+		</nav>
+	</header>
+	<%- content %>
+	<footer>
+		<section>
+			<p>
+				Feito com ♥︎&#xFE0E;<!--&#xFE0E;[Ref] stackoverflow.com/a/38452396/4824627-->
+				por <a href="https://avl.la/">Matheus Avellar</a><br>
+				Rio de Janeiro, RJ, Brasil
+			</p>
+			<p>
+				Sugestões, correções ou comentários?<br>
+				m<svg class="icon" viewBox="0 0 24 24" aria-label="@">
+					<circle cx="12" cy="12" r="4"></circle>
+					<path d="M16 12v1.5a2.5 2.5 0 0 0 5 0v-1.5a9 9 0 1 0 -5.5 8.28"></path>
+				</svg>avl.la
+			</p>
+		</section>
+	</footer>
+	<!-- Rasmus' Inter font (labels) -->
+	<link rel="stylesheet" href="https://cdn.avl.la/font/inter.css">
+	<!-- Bevan (headings), Merriweather (text body) -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Taviraj:wght@700&family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+</body>
+</html>

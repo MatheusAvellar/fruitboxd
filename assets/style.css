@@ -1,0 +1,333 @@
+body {
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+
+	margin: 0;
+	min-height: 100vh;
+
+	font-family: "Merriweather", serif;
+	color: #9ab;
+	background-color: #15191d;
+}
+body:not(.fruit-page) {
+	background-image: linear-gradient(to bottom, #1f262d 0, #1f262d 150px, #1a2026 225px, #15191d 300px);
+	background-repeat: no-repeat;
+	background-position: 0 0;
+}
+
+a[href] {
+	color: #def;
+	text-decoration: none;
+}
+a[href]:hover,
+a[href]:focus {
+	color: #40bcf4;
+}
+
+header {
+	display: flex;
+	align-items: center;
+	height: 72px;
+}
+body:not(.fruit-page) header {
+	background-color: #14181c;
+}
+header > nav, footer > section {
+	display: block;
+	width: 100%;
+	max-width: 950px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#logo {
+	text-decoration: none;
+}
+#logo img {
+	height: 21px;
+	margin-right: 5px;
+}
+#logo h1 > * {
+	vertical-align: middle;
+}
+h1 {
+	display: inline-block;
+	font-family: "Inter var", Inter, Roboto, sans-serif;
+	font-weight: 800;
+	font-size: 32px;
+	letter-spacing: -1px;
+	color: #fcfcfd;
+	margin: -6px 0 0 0;
+}
+.fruit-names h2 {
+	display: inline-block;
+	font-family: "Taviraj", serif;
+	font-size: 32px;
+	font-weight: 700;
+	color: #fcfcfd;
+	margin: 0;
+	margin-right: 5px;
+	line-height: 1;
+}
+.fruit-reviews h2 {
+	border-bottom: 1px solid #456;
+	color: #9ab;
+	font-family: "Inter var", Inter, Roboto, sans-serif;
+	font-size: 13px;
+	font-weight: 400;
+	letter-spacing: 1px;
+	margin-bottom: 10px;
+	margin-top: 0;
+	padding-bottom: 5px;
+	text-transform: uppercase;
+}
+
+main {
+	min-height: 100%;
+	width: 100%;
+	max-width: 950px;
+	margin: auto;
+}
+main p {
+	margin: 0 0 10px 0;
+	line-height: 1.25;
+}
+
+footer {
+	background-color: #2c3440;
+	padding: 32px 0;
+	font-family: "Inter var", Inter, Roboto, sans-serif;
+	font-size: 12px;
+}
+
+footer .icon {
+	height: 1.25rem;
+	padding: .1rem 0;
+	vertical-align: middle;
+	box-sizing: border-box;
+	fill: none;
+	stroke: #9ab;
+	stroke-width: 1.5;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.fruit-list {
+	list-style: none;
+	display: grid;
+	margin: 2rem 0;
+	padding: 0;
+	grid-template-columns: repeat(6, 1fr);
+	gap: 10px;
+}
+
+.card-preview img {
+	width: 100%;
+	border-radius: 5px;
+	aspect-ratio: 230 / 345;
+}
+
+.fruit-header {
+	position: absolute;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: top center;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	height: 675px;
+	width: 1000px;
+	z-index: -1;
+}
+.fruit-header::before {
+	content: "";
+	display: block;
+	position: absolute;
+	pointer-events: none;
+	background-repeat: no-repeat;
+	height: 675px;
+	left: 50%;
+	top: 0;
+	transform: translateX(-50%);
+	width: 900px;
+	z-index: 0;
+	background-image: linear-gradient(90deg,
+		#14181d 0,
+		rgba(20,24,29,.986) .97%,
+		rgba(20,24,29,.945) 2.078%,
+		rgba(20,24,29,.883) 3.297%,
+		rgba(20,24,29,.803) 4.602%,
+		rgba(20,24,29,.711) 5.967%,
+		rgba(20,24,29,.61) 7.365%,
+		rgba(20,24,29,.504) 8.772%,
+		rgba(20,24,29,.398) 10.16%,
+		rgba(20,24,29,.296) 11.505%,
+		rgba(20,24,29,.203) 12.78%,
+		rgba(20,24,29,.122) 13.958%,
+		rgba(20,24,29,.059) 15.017%,
+		rgba(20,24,29,.016) 15.928%,
+		rgba(20,24,29,0) 16.667%,
+		rgba(20,24,29,0) 83.333%,
+		rgba(20,24,29,.016) 84.072%,
+		rgba(20,24,29,.059) 84.983%,
+		rgba(20,24,29,.122) 86.042%,
+		rgba(20,24,29,.203) 87.22%,
+		rgba(20,24,29,.296) 88.495%,
+		rgba(20,24,29,.398) 89.84%,
+		rgba(20,24,29,.504) 91.228%,
+		rgba(20,24,29,.61) 92.635%,
+		rgba(20,24,29,.711) 94.033%,
+		rgba(20,24,29,.803) 95.398%,
+		rgba(20,24,29,.883) 96.703%,
+		rgba(20,24,29,.945) 97.922%,
+		rgba(20,24,29,.986) 99.03%,#14181d),
+	linear-gradient(0deg,
+		#14181d 0,
+		#14181d 21.48148148%,
+		rgba(20,24,29,.986) 23.63703704%,
+		rgba(20,24,29,.945) 26.1%,
+		rgba(20,24,29,.883) 28.80740741%,
+		rgba(20,24,29,.803) 31.70740741%,
+		rgba(20,24,29,.711) 34.74074074%,
+		rgba(20,24,29,.61) 37.84814815%,
+		rgba(20,24,29,.504) 40.97407407%,
+		rgba(20,24,29,.398) 44.05925926%,
+		rgba(20,24,29,.296) 47.04814815%,
+		rgba(20,24,29,.203) 49.88148148%,
+		rgba(20,24,29,.122) 52.5%,
+		rgba(20,24,29,.059) 54.85185185%,
+		rgba(20,24,29,.016) 56.87777778%,
+		rgba(20,24,29,0) 58.51851852%);
+}
+
+.fruit-content {
+	display: grid;
+	grid-template-columns: min-content 1fr;
+	gap: 50px;
+	margin-top: 400px;
+}
+.fruit-image {
+	margin: 0;
+}
+.fruit-image figcaption {
+	color: #678;
+	text-align: center;
+	font-family: "Inter var", Inter, Roboto, sans-serif;
+	font-size: 12px;
+}
+.fruit-image img {
+	width: 230px;
+	aspect-ratio: 230 / 345;
+	border-radius: 5px;
+}
+
+.fruit-names {
+	margin-bottom: 30px;
+}
+.scientific-name {
+	font-style: italic;
+	font-family: "Inter var", Inter, Roboto, sans-serif;
+}
+.description {
+	margin-bottom: 30px;
+	max-width: 48ch;
+}
+
+.kv-list {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	column-gap: 10px;
+	row-gap: 12px;
+
+	font-family: "Inter var", Inter, Roboto, sans-serif;
+	font-size: 12px;
+	margin-top: 30px;
+}
+.kv-list dt {
+	text-transform: uppercase;
+	color: #789;
+}
+.kv-list dt span {
+	display: block;
+	border-bottom: 1px dotted #456;
+}
+.kv-list dd {
+	margin: 0;
+}
+
+.fruit-reviews {
+	min-height: 300px;
+	grid-column: 2 / 3;
+}
+.fruit-reviews ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.fruit-reviews .review {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	column-gap: 18px;
+	padding: 5px 0 15px 0;
+}
+.reviewer {
+	aspect-ratio: 1;
+	height: 40px;
+}
+
+.review-header {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	line-height: 1;
+	margin-bottom: 10px;
+}
+.review-attribution {
+	display: inline-block;
+	margin: 0;
+	font-family: "Inter var", Inter, Roboto, sans-serif;
+	font-size: 13px;
+	color: #678;
+}
+.review-attribution strong {
+	color: #abc;
+}
+.review-rating {
+	display: inline-block;
+	color: #00c030;
+	letter-spacing: -2.5px;
+	font-size: 1.1em;
+}
+.review-text {
+	line-height: 1.6;
+}
+
+@media screen and (max-width: 1050px) {
+	header, main, footer {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	header > nav, footer > section, main {
+		max-width: 600px;
+	}
+	.fruit-list {
+		grid-template-columns: repeat(4, 1fr);
+	}
+
+	.fruit-content {
+		gap: 25px;
+		margin-top: 300px;
+	}
+	.fruit-image img {
+		width: 150px;
+	}
+	.fruit-header {
+		width: 600px;
+	}
+	.fruit-header::before {
+		width: 615px;
+		height: 580px;
+	}
+	.fruit-reviews {
+		grid-column: 1 / 3;
+	}
+}

@@ -1,0 +1,63 @@
+---
+layout: default.ejs
+eleventyComputed: {
+	title: "<%- name %> • Fruitboxd"
+}
+bodyClass: "fruit-page"
+---
+
+<%_
+fileSlug = arguments[0].page.fileSlug;
+thumbnailCredits = fallback(arguments[0], "thumbnailCredits", "");
+backdropCredits = fallback(arguments[0], "backdropCredits", "");
+sciName = fallback(arguments[0], "sciName", "").replaceAll(" ", "\u00A0");
+altNames = fallback(arguments[0], "altNames", []);
+%>
+<main>
+	<div class="fruit-header" style="background-image:url(backdrop.jpg)"></div>
+	<section class="fruit-content">
+		<figure class="fruit-image">
+			<img src="thumbnail.jpg">
+			<figcaption>
+				<%- thumbnailCredits %>
+			</figcaption>
+		</figure>
+		<article>
+			<div class="fruit-names">
+				<h2><%= name %></h2>
+				<span class="scientific-name"><%= sciName %></span>
+			</div>
+			<section class="description">
+				<%- content %>
+				<dl class="kv-list">
+				<%_ if(altNames.length) { %>
+					<dt><span>Nomes alternativos</span></dt>
+					<dd class="alt-names">
+						<%= altNames.join(", ") %>
+					</dd>
+				<%_ } %>
+				<%_ if(backdropCredits) { %>
+					<dt><span>Imagem de capa</span></dt>
+					<dd class="backdrop-credits">
+						<%- backdropCredits %>
+					</dd>
+				<%_ } %>
+				</dl>
+			</section>
+		</article>
+		<article class="fruit-reviews">
+			<h2>Avaliações recentes</h2>
+			<%_ if(fileSlug in reviews) { %>
+			<ul>
+				<%_ for(let review of reviews[fileSlug]) { %>
+					<li>
+						<%- makeReview(review) %>
+					</li>
+				<%_ } %>
+			</ul>
+			<%_ } else { %>
+				<p>No reviews yet!</p>
+			<%_ } %>
+		</article>
+	</section>
+</main>
