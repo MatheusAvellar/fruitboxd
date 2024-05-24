@@ -5,14 +5,15 @@
 	<title>Fruta-do-Conde • Fruitboxd</title>
 <!-- 	<link rel="icon" href="/favicon.ico" sizes="48x48">
 	<link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml"> -->
-	<meta content="Matheus Avellar" name="author">
+	<meta name="author" content="Matheus Avellar">
 	<meta name="description" content="Fruitboxd é uma plataforma para eu, pessoalmente, compartilhar minhas reviews de frutas que eu comi.">
+	<meta name="theme-color" content="#14181c">
 
 	<link rel="preconnect" href="https://cdn.avl.la">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="/assets/style.css">
+	<link rel="stylesheet" href="/assets/style.css?v2">
 </head>
 
 <body class="fruit-page">
@@ -32,7 +33,7 @@
 	<div class="fruit-header" style="background-image:url(backdrop.jpg)"></div>
 	<section class="fruit-content">
 		<figure class="fruit-image">
-			<img src="thumbnail.jpg">
+			<img alt="Fruta-do-Conde" src="thumbnail.jpg">
 			<figcaption>
 				Muhammad Mahdi Karim  (via <a href="https://commons.wikimedia.org/wiki/File:Sugar_apple_with_cross_section_sl.jpg">Wikimedia Commons</a> as GFDL-1.2)
 			</figcaption>
@@ -81,8 +82,8 @@
 				<a href="/review/fruta-do-conde/" class="review-attribution">
 					Avaliação por <strong>Matheus Avellar</strong>
 				</a>
-				<div class="review-rating">
-					🟊🟊🟊
+				<div aria-label="3 estrelas" class="review-rating">
+					<img class="star-icon" src="/assets/star.svg"><img class="star-icon" src="/assets/star.svg"><img class="star-icon" src="/assets/star.svg">
 				</div>
 			</div>
 			<p class="review-date">Consumido em 23 de maio de 2024</p>
@@ -105,6 +106,9 @@ Não aguentaria comer uma inteira, mas não detestei.</p>
 </main>
 	<footer>
 		<section>
+			<p>
+				Website em construção!
+			</p>
 			<p>
 				Feito com ♥︎&#xFE0E;<!--&#xFE0E;[Ref] stackoverflow.com/a/38452396/4824627-->
 				por <a href="https://avl.la/">Matheus Avellar</a><br>

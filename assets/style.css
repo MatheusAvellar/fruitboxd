@@ -85,8 +85,8 @@ h1 {
 
 @media screen and (max-width: 1050px) {
 	header, main, footer {
-		padding-left: 5px;
-		padding-right: 5px;
+		padding-left: 10px;
+		padding-right: 10px;
 	}
 	header > nav, footer > section, main {
 		max-width: 650px;
@@ -111,6 +111,7 @@ body:not(.fruit-page) header {
 	padding: 0;
 	grid-template-columns: repeat(6, 1fr);
 	gap: 10px;
+	margin: 30px 0 100px 0;
 }
 .homepage .card-preview img {
 	width: 100%;
@@ -285,7 +286,7 @@ body:not(.fruit-page) header {
 .fruit-page .fruit-reviews {
 	min-height: 300px;
 	grid-column: 2 / 3;
-	margin-bottom: 30px;
+	margin-bottom: 100px;
 }
 .fruit-page .fruit-reviews ul {
 	list-style: none;
@@ -331,13 +332,15 @@ body:not(.fruit-page) header {
 .fruit-page .fruit-reviews .review .review-header .review-rating {
 	display: inline-block;
 	color: #00c030;
-	letter-spacing: -2.5px;
-	font-size: 1.1em;
 	font-family: "Inter var", Inter, Roboto, sans-serif;
+}
+.fruit-page .fruit-reviews .review .review-header .review-rating .star-icon {
+	width: .75em;
+	margin-right: 1px;
 }
 .fruit-page .fruit-reviews .review .review-header .review-rating .half-star {
 	font-size: 0.9em;
-	margin-left: 2px;
+	margin-left: 1px;
 }
 .fruit-page .fruit-reviews .review .review-text {
 	line-height: 1.6;
@@ -348,16 +351,16 @@ body:not(.fruit-page) header {
 @media screen and (max-width: 1050px) {
 	.fruit-page .fruit-content {
 		gap: 25px;
-		margin-top: 240px;
+		margin-top: 33vw;
 	}
 	.fruit-page .fruit-content .fruit-image img {
 		width: 150px;
 	}
 	.fruit-page .fruit-header {
-		width: 600px;
+		width: 100%;
 	}
 	.fruit-page .fruit-header::before {
-		width: 550px;
+		width: 100%;
 	}
 	.fruit-page .fruit-reviews {
 		grid-column: 1 / 3;
@@ -366,19 +369,13 @@ body:not(.fruit-page) header {
 @media screen and (max-width: 650px) {
 	.fruit-page .fruit-content {
 		gap: 15px;
-		margin-top: 110px;
+		margin-top: 30vw;
 	}
 	.fruit-page .fruit-content .fruit-image img {
 		width: 90px;
 	}
 	.fruit-page .fruit-content .fruit-image figcaption {
 		font-size: 10px;
-	}
-	.fruit-page .fruit-header {
-		width: 400px;
-	}
-	.fruit-page .fruit-header::before {
-		width: 365px;
 	}
 	.fruit-page .fruit-names h2 {
 		font-size: 28px;
@@ -395,13 +392,7 @@ body:not(.fruit-page) header {
 @media screen and (max-width: 450px) {
 	.fruit-page .fruit-content {
 		gap: 15px;
-		margin-top: 55px;
-	}
-	.fruit-page .fruit-header {
-		width: 300px;
-	}
-	.fruit-page .fruit-header::before {
-		width: 275px;
+		margin-top: 25vw;
 	}
 	.fruit-page .fruit-names h2 {
 		font-size: 26px;
@@ -463,7 +454,7 @@ body:not(.fruit-page) header {
 .review-page .review-header h2 {
 	display: inline-block;
 	font-family: "Taviraj", serif;
-	font-size: 28px;
+	font-size: 26px;
 	font-weight: 700;
 	color: #fcfcfd;
 	margin: 0;
@@ -483,12 +474,17 @@ body:not(.fruit-page) header {
 	font-size: 0.8em;
 	font-family: "Inter var", Inter, Roboto, sans-serif;
 }
+.review-page .review-header .review-rating .star-icon {
+	width: .65em;
+	margin-right: 2px;
+}
 .review-page .review-text {
 	line-height: 1.6;
 	white-space: pre-line;
 	max-width: 60ch;
 	grid-column: 2 / 3;
 	margin-top: -130px;
+	margin-bottom: 100px;
 }
 
 
@@ -503,7 +499,7 @@ body:not(.fruit-page) header {
 		font-size: 10px;
 	}
 	.review-page .review-header h2 {
-		font-size: 26px;
+		font-size: 24px;
 	}
 	.review-page .review-header .review-rating {
 		display: block;
