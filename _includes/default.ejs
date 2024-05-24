@@ -5,14 +5,15 @@
 	<title><%- title %></title>
 <!-- 	<link rel="icon" href="/favicon.ico" sizes="48x48">
 	<link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml"> -->
-	<meta content="Matheus Avellar" name="author">
+	<meta name="author" content="Matheus Avellar">
 	<meta name="description" content="Fruitboxd é uma plataforma para eu, pessoalmente, compartilhar minhas reviews de frutas que eu comi.">
+	<meta name="theme-color" content="#14181c">
 <%- void(arguments[0]) %>
 	<link rel="preconnect" href="https://cdn.avl.la">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="/assets/style.css">
+	<link rel="stylesheet" href="/assets/style.css?v2">
 </head>
 <%_ bodyClass = fallback(arguments[0], "bodyClass", "homepage"); %>
 <body class="<%= bodyClass %>">
@@ -29,6 +30,9 @@
 	<%- content %>
 	<footer>
 		<section>
+			<p>
+				Website em construção!
+			</p>
 			<p>
 				Feito com ♥︎&#xFE0E;<!--&#xFE0E;[Ref] stackoverflow.com/a/38452396/4824627-->
 				por <a href="https://avl.la/">Matheus Avellar</a><br>

@@ -89,17 +89,28 @@ module.exports = function(eleventyConfig) {
 
 	makeCard = (item, hyperlink_tag=true) => {
 		const ID = item.fileSlug;
+		const name = "name" in item.data ? item.data.name : "";
 		return `<div class="card">
 	<a href="/fruit/${ID}">
 		<div class="card-preview">
-			<img src="/fruit/${ID}/thumbnail.jpg" decoding="async" loading="lazy">
+			<img alt="${name}" src="/fruit/${ID}/thumbnail.jpg" decoding="async" loading="lazy">
 		</div>
 	</a>`;
 	};
 
-	makeStars = (rating) => {
+	clampRating = (rating) => {
+		rating = Number(rating) || 0
 		const integer = Math.floor(rating);
-		const stars = Array(integer).fill("🟊").join("");
+		if(rating > integer)
+			return integer + 0.5;
+		return integer;
+	};
+
+	makeStars = (rating) => {
+		if(!rating) return "";
+		const integer = Math.floor(rating);
+		const star_svg = `<img class="star-icon" src="/assets/star.svg">`;
+		const stars = Array(integer).fill(star_svg).join("");
 		if(rating > integer)
 			return stars + "<span class='half-star'>½</span>";
 		return stars;
@@ -107,8 +118,14 @@ module.exports = function(eleventyConfig) {
 
 	makeReview = (obj) => {
 		const data = obj.data;
-		const date = "date" in data ? data.date : "data desconhecida";
+		let date = "date" in data ? data.date : "data desconhecida";
+		// `date` às vezes é Date, às vezes já vem formatado(?)
+		if(date instanceof Date)
+			date = formatDate(date);
+
 		const review_text = obj.content.trim();
+		const rating = "rating" in data ? clampRating(data.rating) : "";
+		const estrelas = "estrela" + (rating > 1 ? "s" : "");
 
 		return `<div class="review">
 	<div class="reviewer">
@@ -124,8 +141,8 @@ module.exports = function(eleventyConfig) {
 						: "anônimo"
 					}
 				</a>
-				<div class="review-rating">
-					${"rating" in data ? makeStars(data.rating) : ""}
+				<div aria-label="${rating} ${estrelas}" class="review-rating">
+					${makeStars(rating)}
 				</div>
 			</div>
 			<p class="review-date">Consumido em ${date}</p>

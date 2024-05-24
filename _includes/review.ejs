@@ -6,6 +6,7 @@ eleventyComputed: {
 ---
 <%_
 const doFallback = fallback.bind(null, arguments[0]);
+name = doFallback("name", "");
 author = doFallback("author", "");
 rating = doFallback("rating", "");
 date = formatDate(doFallback("date", ""));
@@ -25,7 +26,7 @@ thumbnailCredits = rev.data?.thumbnailCredits || "";
 	<aside>
 		<figure class="fruit-image">
 			<a href="/fruit/<%= fileSlug %>">
-				<img src="/fruit/<%= fileSlug %>/thumbnail.jpg">
+				<img alt="<%= name %>" src="/fruit/<%= fileSlug %>/thumbnail.jpg">
 			</a>
 			<figcaption>
 				<%- thumbnailCredits %>
