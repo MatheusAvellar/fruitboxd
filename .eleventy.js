@@ -98,22 +98,39 @@ module.exports = function(eleventyConfig) {
 	};
 
 	makeStars = (rating) => {
-		return Array(rating).fill("🟊").join("");
+		const integer = Math.floor(rating);
+		const stars = Array(integer).fill("🟊").join("");
+		if(rating > integer)
+			return stars + "<span class='half-star'>½</span>";
+		return stars;
 	};
 
-	makeReview = (data) => {
+	makeReview = (obj) => {
+		const data = obj.data;
+		const date = "date" in data ? data.date : "data desconhecida";
+		const review_text = obj.content.trim();
+
 		return `<div class="review">
-	<div class="reviewer"></div>
+	<div class="reviewer">
+		<img src="/assets/profile.jpg">
+	</div>
 	<div>
 		<div class="review-header"">
-			<p class="review-attribution">
-				Avaliação por <strong>${"author" in data ? data.author : "Matheus Avellar" }</strong>
-			</p>
-			<div class="review-rating">
-				${"rating" in data ? makeStars(data.rating) : ""}
+			<div class="review-header-top">
+				<a href="${obj.url}" class="review-attribution">
+					Avaliação por ${
+						"author" in data
+						? '<strong>' + data.author + '</strong>'
+						: "anônimo"
+					}
+				</a>
+				<div class="review-rating">
+					${"rating" in data ? makeStars(data.rating) : ""}
+				</div>
 			</div>
+			<p class="review-date">Consumido em ${date}</p>
 		</div>
-		<p class="review-text">${data.text}</p>
+		<p class="review-text">${review_text}</p>
 	</div>
 </div>`;
 	};

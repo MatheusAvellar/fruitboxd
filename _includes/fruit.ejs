@@ -12,6 +12,7 @@ thumbnailCredits = fallback(arguments[0], "thumbnailCredits", "");
 backdropCredits = fallback(arguments[0], "backdropCredits", "");
 sciName = fallback(arguments[0], "sciName", "").replaceAll(" ", "\u00A0");
 altNames = fallback(arguments[0], "altNames", []);
+reviews = fallback(arguments[0], "reviews", []);
 %>
 <main>
 	<div class="fruit-header" style="background-image:url(backdrop.jpg)"></div>
@@ -27,36 +28,38 @@ altNames = fallback(arguments[0], "altNames", []);
 				<h2><%= name %></h2>
 				<span class="scientific-name"><%= sciName %></span>
 			</div>
-			<section class="description">
+			<section class="fruit-description">
 				<%- content %>
-				<dl class="kv-list">
-				<%_ if(altNames.length) { %>
-					<dt><span>Nomes alternativos</span></dt>
-					<dd class="alt-names">
-						<%= altNames.join(", ") %>
-					</dd>
-				<%_ } %>
-				<%_ if(backdropCredits) { %>
-					<dt><span>Imagem de capa</span></dt>
-					<dd class="backdrop-credits">
-						<%- backdropCredits %>
-					</dd>
-				<%_ } %>
-				</dl>
 			</section>
 		</article>
+		<dl class="kv-list">
+		<%_ if(altNames.length) { %>
+			<dt><span>Nomes alternativos</span></dt>
+			<dd class="alt-names">
+				<%= altNames.join(", ") %>
+			</dd>
+		<%_ } %>
+		<%_ if(backdropCredits) { %>
+			<dt><span>Imagem de capa</span></dt>
+			<dd class="backdrop-credits">
+				<%- backdropCredits %>
+			</dd>
+		<%_ } %>
+		</dl>
 		<article class="fruit-reviews">
 			<h2>Avaliações recentes</h2>
-			<%_ if(fileSlug in reviews) { %>
+			<%_
+			const rev = collections.all.filter(file => file.filePathStem.startsWith(`/review/${fileSlug}`));
+			if(rev.length) { %>
 			<ul>
-				<%_ for(let review of reviews[fileSlug]) { %>
+				<%_ for(let review of rev) { %>
 					<li>
 						<%- makeReview(review) %>
 					</li>
 				<%_ } %>
 			</ul>
 			<%_ } else { %>
-				<p>No reviews yet!</p>
+				<p style="margin-top:20px">Sem avaliações ainda!</p>
 			<%_ } %>
 		</article>
 	</section>

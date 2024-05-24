@@ -1,224 +1,54 @@
 ---
 layout: default.ejs
 eleventyComputed: {
-	title: "<%- name %> — Monumentos Rio"
+	title: "'<%- name %>' review • Fruitboxd"
 }
 ---
 <%_
 const doFallback = fallback.bind(null, arguments[0]);
-categoria = doFallback("categoria");
-alt_names = [doFallback("alt_names", [])].flat();
-tags = [doFallback("tags", [])].flat();
+author = doFallback("author", "");
+rating = doFallback("rating", "");
+date = formatDate(doFallback("date", ""));
+fileSlug = arguments[0].page.fileSlug;
 
-data_inaug = doFallback("data_inaug");
-data_circa = doFallback("data_circa");
-data_remov = doFallback("data_remov");
-data_remov_circa = doFallback("data_remov_circa", false);
-motiv_remov = doFallback("motiv_remov");
-
-altura = doFallback("altura", 0);
-largura = doFallback("largura", 0);
-comprimento = doFallback("comprimento", 0);
-peso = doFallback("peso", 0);
-material = [doFallback("material", [])].flat();
-
-autores = [doFallback("autores", [])].flat();
-
-lat = doFallback("lat", 0);
-lon = doFallback("lon", 0);
-local = doFallback("local");
-bairro = doFallback("bairro");
-
-imrj = [doFallback("imrj", [])].flat();
-wikidata = [doFallback("wikidata", [])].flat();
-structurae = doFallback("structurae");
-cona = doFallback("cona");
-
-hpip = doFallback("hpip");
-iphan = doFallback("iphan");
-inepac = doFallback("inepac");
-inepac_url = doFallback("inepac_url");
-
-tombado_nome = doFallback("tombado_nome");
-tombado_desc = doFallback("tombado_desc");
-tombado_quote = doFallback("tombado_quote", false);
-tombado_url = doFallback("tombado_url");
+let rev = collections.all.filter(file => file.filePathStem.startsWith(`/fruit/${fileSlug}`));
+if(rev.length <= 0) {
+	console.log("OOPS");
+	rev = null;
+} else {
+	rev = rev[0];
+}
+thumbnailCredits = rev.data?.thumbnailCredits || "";
 %>
 
-<main class="monument">
-<aside>
-	<em class="display-identifier"><%= page.fileSlug %></em>
-	<div class="tags-list">
-		<!-- Main category tag -->
-		<%- makeTag(categoria) %>
-		<details title="Ver tags" class="hidden-tags-list">
-			<summary>
-				<svg class="icon"><use href="#icon-tag"></use></svg>
-			</summary>
-			<div>
-			<!-- Assigned tags -->
-			<%_ for(let i = 0; i < tags.length; i++) {
-				if(tags[i] !== "imagem não-livre") { %>
-				<%- makeInfoTag(tags[i]) %>
-			<%_ }} %>
-			<!-- Auto-tags -->
-			<%- !autores.length ? makeInfoTag("sem autoria") : undefined %>
-			<%- (data_circa || getDatePrecision(data_inaug) < 2)
-				? makeInfoTag("data imprecisa") : undefined %>
+<main class="fruit-review">
+	<aside>
+		<figure class="fruit-image">
+			<a href="/fruit/<%= fileSlug %>">
+				<img src="/fruit/<%= fileSlug %>/thumbnail.jpg">
+			</a>
+			<figcaption>
+				<%- thumbnailCredits %>
+			</figcaption>
+		</figure>
+	</aside>
+	<div class="review-header">
+		<div class="review-header-top">
+			<div class="reviewer">
+				<img src="/assets/profile.jpg">
 			</div>
-		</details>
-	</div>
-	<%_ if(autores.length || data_inaug || data_remov || material.length) { %>
-		<hr>
-		<p class="section-heading">Detalhes</p>
-		<dl>
-		<%_ if(autores.length) { %>
-			<dt>Autores</dt>
-			<dd><ul><%- autores.map(a=>`<li>${a}</li>`).join("") %></ul></dd>
-		<%_ } %>
-		<dt>Inauguração</dt>
-		<dd>
-			<%= formatDate(data_inaug, data_circa) %><br>
-			<%_ if(data_inaug) { %>(<%= getYearsSince(data_inaug) %>)<%_ } %>
-		</dd>
-		<%_ if(data_remov) { %>
-			<dt>Remoção</dt>
-			<dd>
-				<%= formatDate(data_remov, data_remov_circa) %><br>
-				(<%= getYearsSince(data_remov) %>)<br>
-				<%_ if(motiv_remov) { %>
-				<small><strong>Motivo:</strong> <%= motiv_remov %></small>
-				<%_ } %>
-			</dd>
-		<%_ } %>
-		<%_ if(material.length) { %>
-				<dt>Material</dt>
-				<dd><%- material.join("<br>") %></dd>
-		<%_ } %>
-		</dl>
-	<%_ } %>
-	<%_ if(altura || largura || comprimento || peso) { %>
-		<hr>
-		<div class="description-size">
-			<%_ if(altura) { %>
-				<div>
-					<strong><%= altura %>&nbsp;m</strong>
-					<span class="description-size-label">Altura</span>
+			<p class="review-attribution">
+				Avaliação por <strong><%= author %></strong>
+			</p>
+			<hr>
+			<h2>
+				<%= name %>
+				<div class="review-rating">
+					<%- makeStars(rating) %>
 				</div>
-			<%_ } %>
-			<%_ if(largura) { %>
-				<div>
-					<strong><%= largura %>&nbsp;m</strong>
-					<span class="description-size-label">Largura</span>
-				</div>
-			<%_ } %>
-			<%_ if(comprimento) { %>
-				<div>
-					<strong><%= comprimento %>&nbsp;m</strong>
-					<span class="description-size-label">Comprimento</span>
-				</div>
-			<%_ } %>
-			<%_ if(peso) { %>
-				<div>
-					<strong><%= peso %>&nbsp;kg</strong>
-					<span class="description-size-label">Peso</span>
-				</div>
-			<%_ } %>
+			</h2>
 		</div>
-	<%_ } %>
-	<%_ if(imrj.length || wikidata.length || structurae || cona) { %>
-		<hr>
-		<p class="section-heading">Catálogos</p>
-		<dl>
-			<%_ if(wikidata.length) { %>
-				<dt>Wikidata</dt>
-				<dd>
-					<%_ for(let i = 0; i < wikidata.length; i++) { %>
-					<a href="<%= WIKIDATA_URL %><%= wikidata[i] %>"><%= wikidata[i] %></a><br>
-					<%_ } %>
-				</dd>
-			<%_ } %>
-			<%_ if(imrj.length) { %>
-				<dt><abbr title="Inventário dos Monumentos RJ">IMRJ</abbr></dt>
-				<dd>
-					<%_ for(let i = 0; i < imrj.length; i++) { %>
-					ID&nbsp;<%= imrj[i] %><br>
-					<small>(offline desde 27/10/23; confira no <a href="<%= IMRJ_URL %><%= imrj[i] %>">Wayback Machine</a>)</small><br>
-					<%_ } %>
-				</dd>
-			<%_ } %>
-			<%_ if(structurae) { %>
-				<dt>Structurae</dt>
-				<dd><a href="<%= STRUCTURAE_URL %><%= structurae %>"><%= structurae %></a></dd>
-			<%_ } %>
-			<%_ if(cona) { %>
-				<dt><abbr title="Cultural Objects Names Authority">CONA</abbr></dt>
-				<dd><a href="<%= CONA_URL %><%= cona %>"><%= cona %></a></dd>
-			<%_ } %>
-		</dl>
-	<%_ } %>
-	<%_ if(iphan || inepac || hpip || tombado_nome) { %>
-		<hr>
-		<p class="section-heading">Patrimônio</p>
-		<dl>
-			<%_ if(iphan) { %>
-				<dt><abbr title="Instituto do Patrimônio Histórico e Artístico Nacional">IPHAN</abbr></dt>
-				<dd>
-					Nº&nbsp;<a href="<%= IPHAN_URL %>"><%= iphan %></a>
-				</dd>
-			<%_ } %>
-			<%_ if(inepac) { %>
-				<dt><abbr title="Instituto Estadual do Patrimônio Cultural">INEPAC</abbr></dt>
-				<%_ if(inepac_url) { %>
-					<dd>
-						Nº&nbsp;<a href="<%= inepac_url %>"><%= inepac %></a>
-					</dd>
-				<%_ } else { %>
-					<dd>
-						Nº&nbsp;<%= inepac %>
-					</dd>
-				<%_ } %>
-			<%_ } %>
-			<%_ if(hpip) { %>
-				<dt><abbr title="Património de Influência Portuguesa">HPIP</abbr></dt>
-				<dd>
-					ID&nbsp;<a href="<%= HPIP_URL %><%= hpip %>"><%= hpip %></a>
-				</dd>
-			<%_ } %>
-			<%_ if(tombado_nome) { %>
-				<dt>
-					<%_ if(tombado_url) { %>
-						<p><a href="<%= tombado_url %>"><%= tombado_nome %></a></p>
-					<%_ } else { %>
-						<p><%= tombado_nome %></p>
-					<%_ } %>
-				</dt>
-				<dd>
-					<%_ if(tombado_quote) { %>
-						<blockquote><%= tombado_desc %></blockquote>
-					<%_ } else { %>
-						<%= tombado_desc %>
-					<%_ } %>
-				</dd>
-			<%_ } %>
-		</dl>
-	<%_ } %>
-</aside>
-<section>
-	<%_ if(tags.includes("preliminar")) { %>
-		<p class="note warning cutout-width-limit">
-			<strong>Nota:</strong>
-			Este item está marcado como <%- makeInfoTag("preliminar") %>. Isso
-			significa que ele não possui um identificador permanente ainda.
-			Assim, o URL atual será alterado no futuro. Fique atento!
-		</p>
-	<%_ } %>
-	<h1><%= name %></h1>
-<%_ if(alt_names.length > 0) { %>
-	<p class="alt-names">
-		Também conhecido como <%= alt_names.map(n => `"${n}"`).join(", ") %>.
-	</p>
-<%_ } %>
-	<%- content %>
-</section>
+		<p class="review-date">Consumido em <%= date %></p>
+	</div>
+	<p class="review-text"><%- content.trim() %></p>
 </main>
