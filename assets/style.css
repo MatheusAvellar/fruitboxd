@@ -360,7 +360,7 @@ body:not(.fruit-page) header {
 		width: 100%;
 	}
 	.fruit-page .fruit-header::before {
-		width: 100%;
+		width: calc(100% - 50px);
 	}
 	.fruit-page .fruit-reviews {
 		grid-column: 1 / 3;
@@ -393,6 +393,9 @@ body:not(.fruit-page) header {
 	.fruit-page .fruit-content {
 		gap: 15px;
 		margin-top: 25vw;
+	}
+	.fruit-page .fruit-header::before {
+		width: calc(100% - 20px);
 	}
 	.fruit-page .fruit-names h2 {
 		font-size: 26px;
