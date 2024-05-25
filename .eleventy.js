@@ -99,7 +99,8 @@ module.exports = function(eleventyConfig) {
 	};
 
 	clampRating = (rating) => {
-		rating = Number(rating) || 0
+		rating = Number(rating) || 0.5;
+		rating = Math.max(0.5, Math.min(rating, 5));
 		const integer = Math.floor(rating);
 		if(rating > integer)
 			return integer + 0.5;
@@ -114,6 +115,11 @@ module.exports = function(eleventyConfig) {
 		if(rating > integer)
 			return stars + "<span class='half-star'>½</span>";
 		return stars;
+	};
+	makeUnicodeStars = (rating) => {
+		rating = clampRating(rating);
+		const integer = Math.floor(rating);
+		return Array(integer).fill("★").join("") + (rating > integer ? "½" : "");
 	};
 
 	makeReview = (obj) => {
@@ -150,5 +156,76 @@ module.exports = function(eleventyConfig) {
 		<p class="review-text">${review_text}</p>
 	</div>
 </div>`;
+	};
+
+	makeOpenGraph = function(args) {
+		const url = args.page.url;
+		if(url.startsWith("/review")) {
+			const fruit = args.name;
+			const rating = args.rating;
+			const author = args.author;
+			const fruit_url = url.replace("/review", "/fruit");
+			return `
+<meta name="description" content="A fruit review by ${author}.">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://fruitboxd.avl.la${url}">
+<meta property="og:title" content="A ${makeUnicodeStars(rating)} review of ${fruit}">
+<meta property="og:description" content="A fruit review by ${author}.">
+<meta property="og:image" content="https://fruitboxd.avl.la${fruit_url}backdrop.jpg">
+<meta property="og:image:width" content="1020">
+<meta property="og:image:height" content="768">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@aveiiar">
+<meta name="twitter:url" content="https://fruitboxd.avl.la${url}">
+<meta name="twitter:title" content="Review of ‘${fruit}’ ${makeUnicodeStars(rating)}">
+<meta name="twitter:description" content="A fruit review by ${author}.">
+<meta name="twitter:label1" content="Reviewed by">
+<meta name="twitter:data1" content="${author}">
+<meta name="twitter:label2" content="Rating">
+<meta name="twitter:data2" content="${makeUnicodeStars(rating)}">
+<meta name="twitter:image" content="https://fruitboxd.avl.la${fruit_url}backdrop.jpg">`;
+
+		} else if(url.startsWith("/fruit")) {
+
+			const fruit = args.name;
+			return `
+<meta name="description" content="Fruta cadastrada no Fruitboxd.">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://fruitboxd.avl.la${url}">
+<meta property="og:title" content="${fruit}">
+<meta property="og:description" content="Fruta cadastrada no Fruitboxd.">
+<meta property="og:image" content="https://fruitboxd.avl.la${url}backdrop.jpg">
+<meta property="og:image:width" content="1020">
+<meta property="og:image:height" content="768">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@aveiiar">
+<meta name="twitter:url" content="https://fruitboxd.avl.la${url}">
+<meta name="twitter:title" content="${fruit}">
+<meta name="twitter:description" content="Fruta cadastrada no Fruitboxd.">
+<meta name="twitter:image" content="https://fruitboxd.avl.la${url}backdrop.jpg">`;
+
+		} else {
+			return `
+<meta name="description" content="Fruit reviews!">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://fruitboxd.avl.la/">
+<meta property="og:title" content="Fruitboxd">
+<meta property="og:description" content="Fruit reviews!">
+<!--<meta property="og:image" content="https://fruitboxd.avl.la/...">
+<meta property="og:image:width" content="1020">
+<meta property="og:image:height" content="768">-->
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@aveiiar">
+<meta name="twitter:url" content="https://fruitboxd.avl.la">
+<meta name="twitter:title" content="Fruitboxd">
+<meta name="twitter:description" content="Fruit reviews!">
+<!--<meta name="twitter:image" content="https://fruitboxd.avl.la/">-->`;
+		}
 	};
 };
