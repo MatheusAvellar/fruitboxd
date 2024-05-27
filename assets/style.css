@@ -293,6 +293,11 @@ body:not(.fruit-page) header {
 	margin: 0;
 	padding: 0;
 }
+.fruit-page .fruit-reviews ul hr {
+	border: 0;
+	border-bottom: 1px solid #456;
+	margin: 0 0 15px;
+}
 .fruit-page .fruit-reviews .review {
 	display: grid;
 	grid-template-columns: auto 1fr;
@@ -388,8 +393,11 @@ body:not(.fruit-page) header {
 		font-size: 10px;
 		margin-top: 0;
 	}
+	.fruit-page .fruit-reviews .review .review-text {
+		font-size: 14px;
+	}
 }
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 500px) {
 	.fruit-page .fruit-content {
 		gap: 15px;
 		margin-top: 25vw;
@@ -464,6 +472,9 @@ body:not(.fruit-page) header {
 	margin-right: 5px;
 	line-height: 1;
 }
+.review-page .review-header h2 a[href]:not(:hover) {
+	color: inherit;
+}
 .review-page .review-header hr {
 	height: 1px;
 	border: 0;
@@ -514,7 +525,7 @@ body:not(.fruit-page) header {
 		margin-top: 20px;
 	}
 }
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 500px) {
 	.review-page .fruit-review {
 		column-gap: 15px;
 	}
