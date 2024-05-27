@@ -122,8 +122,18 @@ module.exports = function(eleventyConfig) {
 		return Array(integer).fill("★").join("") + (rating > integer ? "½" : "");
 	};
 
-	makeReview = (obj) => {
+	getAuthorFromUsername = (args, username) => {
+		const users = args?.users || {};
+		return username in users
+			? users[username].name
+			: username;
+	};
+
+	makeReview = (args, obj) => {
 		const data = obj.data;
+		const username = data?.username || "";
+		const author = getAuthorFromUsername(args, username);
+
 		let date = "date" in data ? data.date : "data desconhecida";
 		// `date` às vezes é Date, às vezes já vem formatado(?)
 		if(date instanceof Date)
@@ -131,21 +141,18 @@ module.exports = function(eleventyConfig) {
 
 		const review_text = obj.content.trim();
 		const rating = "rating" in data ? clampRating(data.rating) : "";
+
 		const estrelas = "estrela" + (rating > 1 ? "s" : "");
 
 		return `<div class="review">
 	<div class="reviewer">
-		<img src="/assets/profile.jpg">
+		<img src="/assets/avatar/${username}.jpg">
 	</div>
 	<div>
 		<div class="review-header"">
 			<div class="review-header-top">
 				<a href="${obj.url}" class="review-attribution">
-					Avaliação por ${
-						"author" in data
-						? '<strong>' + data.author + '</strong>'
-						: "anônimo"
-					}
+					Avaliação por <strong>${author}</strong>
 				</a>
 				<div aria-label="${rating} ${estrelas}" class="review-rating">
 					${makeStars(rating)}
@@ -160,11 +167,13 @@ module.exports = function(eleventyConfig) {
 
 	makeOpenGraph = function(args) {
 		const url = args.page.url;
-		if(url.startsWith("/review")) {
+		if(args.layout.startsWith("review")) {
 			const fruit = args.name;
 			const rating = args.rating;
-			const author = args.author;
-			const fruit_url = url.replace("/review", "/fruit");
+			//console.log(args);
+			//const author = args.author;
+			const author = getAuthorFromUsername(args, args.username);
+			const fruit_url = url.replace(`/${args.username}`, "");
 			return `
 <meta name="description" content="A fruit review by ${author}.">
 
@@ -187,7 +196,7 @@ module.exports = function(eleventyConfig) {
 <meta name="twitter:data2" content="${makeUnicodeStars(rating)}">
 <meta name="twitter:image" content="https://fruitboxd.avl.la${fruit_url}backdrop.jpg">`;
 
-		} else if(url.startsWith("/fruit")) {
+		} else if(args.layout.startsWith("fruit")) {
 
 			const fruit = args.name;
 			return `

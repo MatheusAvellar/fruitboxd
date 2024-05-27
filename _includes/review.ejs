@@ -1,13 +1,14 @@
 ---
 layout: default.ejs
 eleventyComputed: {
-	title: "‘<%- name %>’ review by <%- author %> • Fruitboxd"
+	title: "‘<%- name %>’ review by <%- users?.[username]?.name || username %> • Fruitboxd"
 }
+bodyClass: "review-page"
 ---
 <%_
 const doFallback = fallback.bind(null, arguments[0]);
 name = doFallback("name", "");
-author = doFallback("author", "");
+username = doFallback("username", "");
 rating = doFallback("rating", "");
 date = formatDate(doFallback("date", ""));
 fileSlug = arguments[0].page.fileSlug;
@@ -36,14 +37,16 @@ thumbnailCredits = rev.data?.thumbnailCredits || "";
 	<div class="review-header">
 		<div class="review-header-top">
 			<div class="reviewer">
-				<img src="/assets/profile.jpg">
+				<img src="/assets/avatar/<%= username %>.jpg">
 			</div>
 			<p class="review-attribution">
-				Avaliação por <strong><%= author %></strong>
+				Avaliação por <strong><%=
+					getAuthorFromUsername(arguments[0], username)
+				%></strong>
 			</p>
 			<hr>
 			<h2>
-				<%= name %>
+				<a href="/fruit/<%= fileSlug %>"><%= name %></a>
 				<div class="review-rating">
 					<%- makeStars(rating) %>
 				</div>

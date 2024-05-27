@@ -49,13 +49,18 @@ reviews = fallback(arguments[0], "reviews", []);
 		<article class="fruit-reviews">
 			<h2>Avaliações recentes</h2>
 			<%_
-			const rev = collections.all.filter(file => file.filePathStem.startsWith(`/review/${fileSlug}`));
+			const rev = collections.all
+				.filter(file => file.filePathStem.endsWith(fileSlug))
+				.filter(file => !file.filePathStem.startsWith(`/fruit/`))
+				.filter(file => "rating" in file.data)
+				.reverse();
 			if(rev.length) { %>
 			<ul>
-				<%_ for(let review of rev) { %>
+				<%_ for(let i = 0, L = rev.length; i < L; i++) {
+					const review = rev[i]; %>
 					<li>
-						<%- makeReview(review) %>
-					</li>
+						<%- makeReview(arguments[0], review) %>
+					</li><%- (L > 1 && i < L-1 ) ? "<hr>" : "" %>
 				<%_ } %>
 			</ul>
 			<%_ } else { %>
