@@ -93,7 +93,7 @@ module.exports = function(eleventyConfig) {
 		return `<div class="card">
 	<a href="/fruit/${ID}">
 		<div class="card-preview">
-			<img alt="${name}" src="/fruit/${ID}/thumbnail.jpg" decoding="async" loading="lazy">
+			<img title="${name}" src="/fruit/${ID}/thumbnail.jpg" decoding="async" loading="lazy">
 		</div>
 	</a>`;
 	};
@@ -152,7 +152,7 @@ module.exports = function(eleventyConfig) {
 		<div class="review-header"">
 			<div class="review-header-top">
 				<a href="${obj.url}" class="review-attribution">
-					Avaliação por <strong>${author}</strong>
+					Avaliado por <strong>${author}</strong>
 				</a>
 				<div aria-label="${rating} ${estrelas}" class="review-rating">
 					${makeStars(rating)}
