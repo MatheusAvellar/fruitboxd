@@ -1,4 +1,7 @@
+const ejsPlugin = require("@11ty/eleventy-plugin-ejs");
+
 module.exports = function(eleventyConfig) {
+	eleventyConfig.addPlugin(ejsPlugin);
 	website_domain = "fruitboxd.avl.la";
 
 	eleventyConfig.addPassthroughCopy("assets");
